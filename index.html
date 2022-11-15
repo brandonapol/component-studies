@@ -36,6 +36,24 @@
                 });
                 }
 
+                componentDidMount() {
+                    console.log('componentDidMount');
+                }
+                componentWillUnmount() {
+                    console.log('componentWillUnmount');
+                }
+                componentDidUpdate(prevProps, prevState, snapshot) {
+                    console.log('componentDidUpdate', prevProps, prevState, snapshot);
+                }
+                componentBeforeUpdate(prevProps, prevState) {
+                    console.log('getSnapshotBeforeUpdate', prevProps, prevState);
+                    return 'Hello';
+                }
+                shouldComponentUpdate(newProps, newState) {
+                    console.log('shouldComponentUpdate', newProps, newState)
+                    return true;
+                }
+
                 render() { // Object Oriented React is HORRIBLE wow
                     const text = 'text' in this.state ? this.state.text : this.props.text;
                     return (
