@@ -14,23 +14,46 @@
     <script src="react-dom.js"></script>
     <script src="babel.js"></script>
     <script type="text/babel">
-            const MyComponent = function ({name, job}) {
-                return <span>My name is <em>{name}</em>, the {job}</span>;
-            };
-            MyComponent.defaultProps = {
-                job: 'engineer',
-            };
-            const TextAreaCounter = ({ props }) => {
-                const text = props.text;
-                return (
-                    <div>
-                        <textarea defaultValue={text} />
+            // const TextAreaCounter = ({ props }) => {
+            //     const text = props.text;
+            //     return (
+            //         <div>
+            //             <textarea defaultValue={text} />
+            //             <h3>{text.length}</h3>
+            //         </div>
+            //     );
+            // };
+            class TextAreaCounter extends React.Component {
+                constructor() {
+                    super();
+                    this.state = {};
+                    this.onTextChange = this.onTextChange.bind(this);
+                }
+
+                onTextChange(event) {
+                    this.setState({
+                        text: event.target.value,
+                });
+                }
+
+                render() { // Object Oriented React is HORRIBLE wow
+                    const text = 'text' in this.state ? this.state.text : this.props.text;
+                    return (
+                        <div>
+                        <textarea defaultValue={text} onChange={this.onTextChange} />
                         <h3>{text.length}</h3>
-                    </div>
-                );
-            }
+                        </div>
+                    );
+                }
+            };
+            
+            TextAreaCounter.defaultProps = {
+                text: 'Count me as I type!',
+            };
+
+            
         ReactDOM.render(
-            <TextAreaCounter props={{text: 'Count me as I type',}} />,
+            <TextAreaCounter />,
             document.getElementById('app')
         );
     </script>
